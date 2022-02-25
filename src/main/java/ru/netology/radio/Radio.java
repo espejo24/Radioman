@@ -2,7 +2,18 @@ package ru.netology.radio;
 
 public class Radio {
     private int currentStation;
+    private int minStation = 0;
+    private int maxStation = 10;
     private int currentVolume;
+    private int minVolume = 0;
+    private int maxVolume = 100;
+
+    public Radio() {                     // no args
+    }
+
+    public Radio(int maxStation) {         // задаем кол-во станций
+        this.maxStation = maxStation;
+    }
 
     public int getCurrentStation() {      // получаем текущую станцию
         return currentStation;
@@ -12,48 +23,49 @@ public class Radio {
         return currentVolume;
     }
 
-    public void setCurrentStation(int currentStation) {    // задаем условия для смены текущей станции
+    public void setCurrentStation(int currentStation) {
         if (currentStation < 0) {
             return;
         }
-        if (currentStation > 9) {
+        if (currentStation > maxStation - 1) {
             return;
         }
         this.currentStation = currentStation;
     }
 
-    public void setCurrentVolume(int currentVolume) {    // задаем условия для смены текущей громкости
+    public void setCurrentVolume(int currentVolume) {
         if (currentVolume < 0) {
             return;
         }
-        if (currentVolume > 10) {
+        if (currentVolume > 100) {
             return;
         }
         this.currentVolume = currentVolume;
     }
 
-    public void increaseVolume() {    // увеличиваем звук на 1
-        if (currentVolume < 10) {
-            currentVolume = currentVolume + 1;
-        }
-    }
 
-    public void nextStation() {    // увеличиваем станцию на 1
-        if (currentStation < 9) {
+    public void nextStation() {
+        if (currentStation < maxStation - 1) {    // при десяти станциях 9-ая - последняя
             currentStation = currentStation + 1;
         } else currentStation = 0;
     }
 
-    public void decreaseVolume() {    // умньшаем звук на 1
-        if (currentVolume > 0) {
-            currentVolume = currentVolume - 1;
+    public void prevStation() {
+        if (currentStation > 0) {
+            currentStation = currentStation - 1;
+        } else currentStation = maxStation - 1;
+    }
+
+    public void increaseVolume() {
+        if (currentVolume < 100) {
+            currentVolume = currentVolume + 1;
         }
     }
 
-    public void prevStation() {    // уменьшаем станцию на 1
-        if (currentStation > 0) {
-            currentStation = currentStation - 1;
-        } else currentStation = 9;
+    public void decreaseVolume() {
+        if (currentVolume > 0) {
+            currentVolume = currentVolume - 1;
+        }
     }
 }
 
