@@ -3,7 +3,7 @@ package ru.netology.radio;
 public class Radio {
     private int currentStation;
     private int minStation = 0;
-    private int maxStation = 10;
+    private int StationsCount = 10;   // максимальное количество станций (от 0 до 9)
     private int currentVolume;
     private int minVolume = 0;
     private int maxVolume = 100;
@@ -12,7 +12,7 @@ public class Radio {
     }
 
     public Radio(int maxStation) {         // задаем кол-во станций
-        this.maxStation = maxStation;
+        this.StationsCount = maxStation;
     }
 
     public int getCurrentStation() {      // получаем текущую станцию
@@ -27,7 +27,7 @@ public class Radio {
         if (currentStation < 0) {
             return;
         }
-        if (currentStation > maxStation - 1) {
+        if (currentStation > StationsCount - 1) {
             return;
         }
         this.currentStation = currentStation;
@@ -45,7 +45,7 @@ public class Radio {
 
 
     public void nextStation() {
-        if (currentStation < maxStation - 1) {    // при десяти станциях 9-ая - последняя
+        if (currentStation < StationsCount - 1) {    // при десяти станциях 9-ая - последняя
             currentStation = currentStation + 1;
         } else currentStation = 0;
     }
@@ -53,7 +53,7 @@ public class Radio {
     public void prevStation() {
         if (currentStation > 0) {
             currentStation = currentStation - 1;
-        } else currentStation = maxStation - 1;
+        } else currentStation = StationsCount - 1;
     }
 
     public void increaseVolume() {

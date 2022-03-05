@@ -42,6 +42,7 @@ class RadioTest {
         int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
     }
+
     @Test
     public void shouldChangeCurrentVolumeUpperHighLimit() {
         Radio radio = new Radio();
@@ -68,7 +69,6 @@ class RadioTest {
         int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
     }
-
 
 
     @Test
@@ -98,6 +98,7 @@ class RadioTest {
         int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
     }
+
     @Test
     public void shouldIncreaseVolumeUpHighLimit() {
         Radio radio = new Radio();
@@ -197,6 +198,7 @@ class RadioTest {
         int actual = radio.getCurrentStation();
         assertEquals(expected, actual);
     }
+
     @Test
     public void shouldUseWithArgsConstructorFalse() {
         Radio radio = new Radio(15);
