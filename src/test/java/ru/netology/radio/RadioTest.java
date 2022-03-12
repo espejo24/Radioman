@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
 
     @Test
-    public void shouldFindCurrentStation() {      // проверили, что радио показывает текущую станцию
+    public void shouldFindCurrentStation() {
         Radio radio = new Radio();
         radio.getCurrentStation();
         int expected = 0;
@@ -17,16 +17,16 @@ class RadioTest {
     }
 
     @Test
-    public void shouldFindCurrentVolume() {    // проверили, что радио показывает текущую громкость
+    public void shouldFindCurrentVolume() {
         Radio radio = new Radio();
         radio.getCurrentVolume();
         int expected = 0;
-        int actual = radio.getCurrentStation();
+        int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldChangeCurrentStation() {    // проверили, что можем менять текущую станцию
+    public void shouldChangeCurrentStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(12);
         int expected = 0;
@@ -35,16 +35,25 @@ class RadioTest {
     }
 
     @Test
-    public void shouldChangeCurrentVolume() {    // проверили, что можем менять текущую громкость
+    public void shouldChangeCurrentVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(15);
+        int expected = 15;
+        int actual = radio.getCurrentVolume();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldChangeCurrentVolumeUpperHighLimit() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(101);
         int expected = 0;
         int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldChangeCurrentStationFalse() {    // проверили, что можем менять текущую станцию при недопустимом значении
+    public void shouldChangeCurrentStationFalse() {
         Radio radio = new Radio();
         radio.setCurrentStation(-1);
         int expected = 0;
@@ -53,7 +62,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldChangeCurrentVolumeFalse() {    // проверили, что можем менять текущую громкость при недопустимом значении
+    public void shouldChangeCurrentVolumeFalse() {
         Radio radio = new Radio();
         radio.setCurrentVolume(-1);
         int expected = 0;
@@ -63,7 +72,7 @@ class RadioTest {
 
 
     @Test
-    public void shouldChangeCurrentStationTrue() {    // проверили, что сеттер работает на выбор допустимого значания станции
+    public void shouldChangeCurrentStationTrue() {
         Radio radio = new Radio();
         radio.setCurrentStation(5);
         int expected = 5;
@@ -72,7 +81,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldChangeCurrentVolumeTrue() {    // проверили, что сеттер работает на выбор допустимого значания громкости
+    public void shouldChangeCurrentVolumeTrue() {
         Radio radio = new Radio();
         radio.setCurrentVolume(2);
         int expected = 2;
@@ -81,7 +90,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldIncreaseVolume() {    // проверили, что можем увеличить на 1 громкость
+    public void shouldIncreaseVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(5);
         radio.increaseVolume();
@@ -91,7 +100,17 @@ class RadioTest {
     }
 
     @Test
-    public void shouldIncreaseStation() {    // проверили, что можем увеличить на 1 станцию
+    public void shouldIncreaseVolumeUpHighLimit() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(100);
+        radio.increaseVolume();
+        int expected = 100;
+        int actual = radio.getCurrentVolume();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldIncreaseStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(5);
         radio.nextStation();
@@ -101,7 +120,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldNextStation() {    // проверили, что после 9-ой станции 0-ая
+    public void shouldNextStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(9);
         radio.nextStation();
@@ -112,7 +131,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldPrevStation() {    // проверили, что после 0-ой станции 9-ая
+    public void shouldPrevStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(0);
         radio.prevStation();
@@ -123,18 +142,18 @@ class RadioTest {
     }
 
     @Test
-    public void shouldNextVolume() {    // проверили, что после 10-ой громкости ничего
+    public void shouldNextVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(10);
         radio.increaseVolume();
-        int expected = 10;
+        int expected = 11;
         int actual = radio.getCurrentVolume();
         assertEquals(expected, actual);
 
     }
 
     @Test
-    public void shouldPrevVolume() {    // проверили, что после 0-ой громкости ничего
+    public void shouldPrevVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(0);
         radio.decreaseVolume();
@@ -145,7 +164,7 @@ class RadioTest {
     }
 
     @Test
-    public void shouldDecreaseVolume() {    // проверили, что можем уменьшить на 1 громкость
+    public void shouldDecreaseVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(8);
         radio.decreaseVolume();
@@ -155,11 +174,36 @@ class RadioTest {
     }
 
     @Test
-    public void shouldDecreaseStation() {    // проверили, что можем уменьшить на 1 станцию
+    public void shouldDecreaseStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(4);
         radio.prevStation();
         int expected = 3;
+        int actual = radio.getCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    // конструкторы
+    @Test
+    public void shouldUseNoArgsConstructor() {
+        Radio radio1 = new Radio();
+        assertEquals(0, radio1.getCurrentStation());
+    }
+
+    @Test
+    public void shouldUseWithArgsConstructorTrue() {
+        Radio radio = new Radio(15);
+        radio.setCurrentStation(10);
+        int expected = 10;
+        int actual = radio.getCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldUseWithArgsConstructorFalse() {
+        Radio radio = new Radio(15);
+        radio.setCurrentStation(16);
+        int expected = 0;
         int actual = radio.getCurrentStation();
         assertEquals(expected, actual);
     }
